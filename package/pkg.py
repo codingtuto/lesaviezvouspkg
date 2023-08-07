@@ -12,11 +12,12 @@ $$ |\$$$$$$$\       $$$$$$$  |\$$$$$$$ |  \$  /   $$ |\$$$$$$$\ $$$$$$$$\       
 Voici le code principale du package n'hésitez pas à contribuer
 
 $pip install lesaviezvous
-                                                                                                                         
+
+API: https://lesaviezvous.onrender.com/
 """
 import random
 
-facts = [
+faits = [
   "La Terre est la seule planète connue à abriter la vie.",
   "Les abeilles communiquent en dansant.",
   "Le cerveau humain pèse environ 1,4 kilogramme.",
@@ -593,6 +594,19 @@ facts = [
   "Les miracles du Coran sont considérés comme une manifestation du pouvoir et de la sagesse divines, et sont vus comme des signes de la vérité et de la perfection du message coranique."
 ]
 
-def faits():
-    fact = random.choice(facts)
-    return fact
+faits_utilises = []
+
+def obtenir_fait():
+    global faits_utilises
+
+    if len(faits_utilises) == len(faits):
+        faits_utilises = []
+
+    fait = random.sample(set(faits) - set(faits_utilises), 1)[0]
+    faits_utilises.append(fait)
+    return fait
+
+def reinitialiser_faits_utilises():
+    global faits_utilises
+    faits_utilises = []
+
